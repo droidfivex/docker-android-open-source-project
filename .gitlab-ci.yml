@@ -3,7 +3,6 @@ services:
 - docker:dind
 
 stages:
-- build
 - release
 
 variables:
@@ -12,8 +11,8 @@ variables:
 before_script:
   - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
 
-build:
-  stage: build
+release:
+  stage: release
   only:
     - tags
   script:
@@ -21,10 +20,3 @@ build:
     - docker tag $IMAGE_NAME $IMAGE_NAME:$CI_COMMIT_TAG
     - docker push $IMAGE
     - docker push $IMAGE:$CI_COMMIT_TAG
-
-release-image:
-  stage: release
-  script:
-    - docker push $IMAGE
-  only:
-    - master
