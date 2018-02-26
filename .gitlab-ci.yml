@@ -27,4 +27,4 @@ release-mirror:
     - apk add --no-cache bash git openssh
     - echo $DEPLOY_KEY | base64 -d > id
     - chmod 600 id
-    - git push $DEPLOY_TARGET --mirror
+    - git push $DEPLOY_TARGET --mirror --quiet
