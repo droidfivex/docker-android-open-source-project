@@ -29,3 +29,11 @@ release-mirror:
     - echo $DEPLOY_KEY | base64 -d > id
     - chmod 600 id
     - GIT_SSH_COMMAND="$GIT_SSH_COMMAND -i id" git push $DEPLOY_TARGET --mirror --quiet
+
+check-dind-storage-capacity:
+  image: docker:latest
+  services:
+    - docker:dind
+  stage: release
+  script:
+    - docker build cdsc
