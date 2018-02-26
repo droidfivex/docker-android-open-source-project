@@ -1,7 +1,3 @@
-image: docker:latest
-services:
-- docker:dind
-
 stages:
 - release
 
@@ -13,6 +9,9 @@ before_script:
   - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
 
 release-image:
+  image: docker:latest
+  services:
+    - docker:dind
   stage: release
   only:
     - tags
@@ -23,8 +22,10 @@ release-image:
     - docker push $IMAGE:$CI_COMMIT_TAG
 
 release-mirror:
+  image: alpine/git
   stage: release
   script:
+    - df -h
     - echo $DEPLOY_KEY | base64 -d > id
     - chmod 600 id
     - git push $DEPLOY_TARGET --mirror
