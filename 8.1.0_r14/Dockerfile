@@ -10,9 +10,13 @@ RUN mkdir -p $manifest_branch
 WORKDIR $manifest_branch
 
 RUN \
-    yes | repo init -u $manifest_repository -b $manifest_branch && \
+    yes | repo init \
+        --depth=1 \
+        --quiet \
+        --manifest-url=$manifest_repository \
+        --manifest-branch=$manifest_branch && \
     repo sync \
-        --jobs $(cat /proc/cpuinfo | grep processor | wc -l) \
+        --jobs=$(cat /proc/cpuinfo | grep processor | wc -l) \
         --network-only \
         --current-branch \
         --no-tags \
