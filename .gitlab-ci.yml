@@ -12,7 +12,7 @@ variables:
 before_script:
   - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
 
-release:
+release-image:
   stage: release
   only:
     - tags
@@ -21,3 +21,10 @@ release:
     - docker tag $IMAGE_NAME $IMAGE_NAME:$CI_COMMIT_TAG
     - docker push $IMAGE
     - docker push $IMAGE:$CI_COMMIT_TAG
+
+release-mirror:
+  stage: release
+  script:
+    - echo $DEPLOY_KEY | base64 -d > id
+    - chmod 600 id
+    - git push $DEPLOY_TARGET --mirror
