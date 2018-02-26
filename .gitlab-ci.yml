@@ -7,6 +7,7 @@ stages:
 
 variables:
   IMAGE_NAME: registry.gitlab.com/droidfivex/docker-android-open-source-project/$CI_COMMIT_TAG
+  DOCKER_DRIVER: overlay
 
 before_script:
   - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
