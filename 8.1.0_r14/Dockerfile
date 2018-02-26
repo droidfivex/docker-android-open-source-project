@@ -15,4 +15,5 @@ RUN \
         --jobs $(cat /proc/cpuinfo | grep processor | wc -l) \
         --network-only \
         --current-branch \
-        --no-tags
+        --no-tags \
+        --quiet
