@@ -15,8 +15,8 @@ release-image:
   script:
     - docker build --pull -t $IMAGE_NAME $CI_COMMIT_TAG
     - docker tag $IMAGE_NAME $IMAGE_NAME:$CI_COMMIT_TAG
-    - docker push $IMAGE
-    - docker push $IMAGE:$CI_COMMIT_TAG
+    - docker push $IMAGE_NAME
+    - docker push $IMAGE_NAME:$CI_COMMIT_TAG
 
 release-mirror:
   image: alpine
